@@ -1,7 +1,7 @@
 {
   "name": "grunt-spm-server",
   "description": "A Grunt task plugin to transport `CommonJS` module to `CMD` module for `SeaJS` environment dynamically.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/crossjs/grunt-spm-server",
   "author": {
     "name": "crossjs",

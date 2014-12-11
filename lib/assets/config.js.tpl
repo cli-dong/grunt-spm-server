@@ -32,7 +32,7 @@
   }
 
   seajs.config({
-    base: '/',
+    base: './',
     alias: {
       //@ALIAS
     },
