@@ -16,7 +16,8 @@ module.exports = function(grunt) {
       develop: {
         options: {
           base: 'tests',
-          config: false
+          config: false,
+          release: false
         }
       }
     }
