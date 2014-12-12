@@ -1,6 +1,10 @@
-# grunt-spm-server [![NPM version](https://badge.fury.io/js/grunt-spm-server.png)](http://badge.fury.io/js/grunt-spm-server)
+# grunt-spm-server
 
-[![NPM](https://nodei.co/npm/grunt-spm-server.png?downloads=true)](https://nodei.co/npm/grunt-spm-server/)
+[![NPM version](https://img.shields.io/npm/v/grunt-spm-server.svg?style=flat-square)](https://npmjs.org/package/grunt-spm-server)
+[![Build Status](https://img.shields.io/travis/crossjs/grunt-spm-server.svg?style=flat-square)](https://travis-ci.org/crossjs/grunt-spm-server)
+[![NPM downloads](http://img.shields.io/npm/dm/grunt-spm-server.svg?style=flat-square)](https://npmjs.org/package/grunt-spm-server)
+[![David](http://img.shields.io/david/crossjs/grunt-spm-server.svg?style=flat-square)](https://npmjs.org/package/grunt-spm-server)
+[![David](http://img.shields.io/david/dev/crossjs/grunt-spm-server.svg?style=flat-square)](https://npmjs.org/package/grunt-spm-server)
 
   > A Grunt task plugin to transport `CommonJS` module to `CMD` module for `SeaJS` environment dynamically.
 
