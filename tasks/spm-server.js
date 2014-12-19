@@ -112,7 +112,7 @@ module.exports = function(grunt) {
         }
 
         // 默认匹配
-        return /^\/(((app|mod|spm_modules).+)|index)\.(css|handlebars|json|js)$/.test(url);
+        return /^\/(((app|mod|spm_modules|src).+)|index)\.(css|handlebars|json|js)$/.test(url);
       };
     }
 
