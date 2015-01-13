@@ -28,8 +28,11 @@ grunt.initConfig({
     // 开发环境
     develop: {
       options: {
+        // API mocking 文件存放目录
+        api: './mock',
         // 指向上级目录
-        base: '..'
+        base: '..',
+        release: false
       }
     },
     // 仿真线上环境
@@ -51,40 +54,57 @@ $ grunt server:release
 ## 参数
 
 ### src
+
 Type: `Array | String`
 
 config 文件模板路径，可选。
 
 ### dest
+
 Type: `String`
 
 config 文件存放路径，可选，默认 `'lib/config.js'`。
 
-### options.base
+### options.api
+
 Type: `String`
+
+API mocking 文件存放目录。
+
+### options.base
+
+Type: `String`
+
 Default value: `'.'`
 
 Web 服务根目录。
 
 ### options.config
+
 Type: `Boolean`
+
 Default value: `true`
 
 是否生成 config 文件。
 
 ### options.port
+
 Type: `Number`
+
 Default value: `8851`
 
 Web 服务侦听端口。
 
 ### options.release
+
 Type: `Boolean`
+
 Default value: `true`
 
 是否模拟线上环境，为 `true` 则不执行服务端 wrapping。
 
 ### options.rule
+
 Type: `Function`
 
 路径匹配函数，可选，返回 `true` 则执行服务端wrapping。
