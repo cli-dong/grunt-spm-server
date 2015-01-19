@@ -6,9 +6,9 @@
 [![David](http://img.shields.io/david/crossjs/grunt-spm-server.svg?style=flat-square)](https://npmjs.org/package/grunt-spm-server)
 [![David](http://img.shields.io/david/dev/crossjs/grunt-spm-server.svg?style=flat-square)](https://npmjs.org/package/grunt-spm-server)
 
-  > A Grunt task plugin to transport `CommonJS` module to `CMD` module for `SeaJS` environment dynamically.
+  > A Grunt task plugin, transport `CommonJS` module dynamically for `SeaJS` environment.
 
-  > Grunt 插件：通过 Web 服务实时地将 CommonJS 模块转化成 CMD 模块，方便 SeaJS 环境中的开发调试。
+  > Grunt 插件：通过 Web 服务实时地转换 CommonJS 模块以方便 SeaJS 环境中的开发调试。
 
 ## 背景
 
@@ -55,56 +55,108 @@ $ grunt server:release
 
 ### src
 
-Type: `Array | String`
-
-config 文件模板路径，可选。
+    Type: `Array | String`
+    config 文件模板路径，可选。
 
 ### dest
 
-Type: `String`
-
-config 文件存放路径，可选，默认 `'lib/config.js'`。
+    Type: `String`
+    config 文件存放路径，可选，默认 `'lib/config.js'`。
 
 ### options.api
 
-Type: `String`
+    Type: `String`
+    API mocking 文件存放目录。
 
-API mocking 文件存放目录。
+```js
+// json
+{
+  "/url/to/foo": {
+    "POST": {
+      "code": 0,
+      "message": "POST ok",
+      "notice_id": "xxxxxxx"
+    },
+    "PATCH": {
+      "code": 0,
+      "message": "PATCH ok",
+      "notice_id": "xxxxxxx"
+    }
+  },
+  "/url/to/bar": {
+    // asterisk match any RESTful request method
+    "*": {
+      "code": 0,
+      "message": "ok"
+    }
+  }
+}
+
+// or js
+module.exports = {
+  '/foo/bar': {
+    // function is support
+    'GET': function(url, query) {
+      return {
+        'MOCKAPI': {
+          // means redirect
+          'status': '302',
+          'location': '/foo/bar' + query.match(/id=([^&]+)/)[1] + '.png'
+        }
+      };
+    }
+  }
+};
+
+```
 
 ### options.base
 
-Type: `String`
-
-Default value: `'.'`
-
-Web 服务根目录。
+    Type: `String`
+    Default value: `'.'`
+    Web 服务根目录。
 
 ### options.config
 
-Type: `Boolean`
-
-Default value: `true`
-
-是否生成 config 文件。
+    Type: `Boolean`
+    Default value: `true`
+    是否生成 config 文件。
 
 ### options.port
 
-Type: `Number`
-
-Default value: `8851`
-
-Web 服务侦听端口。
+    Type: `Number`
+    Default value: `8851`
+    Web 服务侦听端口。
 
 ### options.release
 
-Type: `Boolean`
-
-Default value: `true`
-
-是否模拟线上环境，为 `true` 则不执行服务端 wrapping。
+    Type: `Boolean`
+    Default value: `true`
+    是否模拟线上环境，为 `true` 则不执行服务端 wrapping。
 
 ### options.rule
 
-Type: `Function`
+    Type: `Function | RegExp`
+    路径匹配函数，可选，返回 `true` 则执行服务端 wrapping。
 
-路径匹配函数，可选，返回 `true` 则执行服务端wrapping。
+```js
+function(url, query, idleading) {
+  if (query.indexOf('nowrap') !== -1) {
+    return false;
+  }
+
+  if (idleading) {
+    if (idleading.indexOf('..') !== -1) {
+      url = url.replace(/^\/[^\/]+/, '');
+    } else if (url.indexOf('/' + idleading) !== -1) {
+      url = url.substring(idleading.length + 1);
+    }
+  }
+
+  // 默认匹配
+  return /^\/(((app|mod|spm_modules|src).+)|index)\.(css|handlebars|json|js)$/.test(url);
+}
+
+// or RegExp
+/^\/(((app|mod|spm_modules|src).+)|index)\.(css|handlebars|json|js)$/
+```

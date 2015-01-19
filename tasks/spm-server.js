@@ -95,6 +95,14 @@ module.exports = function(grunt) {
       release: true
     });
 
+    if (options.rule) {
+      if (options.rule.constructor === RegExp) {
+        options.rule = function(url/*, query, idleading*/) {
+          return options.rule.test(url);
+        };
+      }
+    }
+
     if (!options.rule) {
       options.rule = options.release ? function() {
         return false;
