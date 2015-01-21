@@ -29,6 +29,10 @@ module.exports = function(grunt) {
         idleading: options.idleading
       });
 
+      function gBase() {
+        return options.idleading.replace('/' + grunt.config('pkg.name'), '');
+      }
+
       function gAlias() {
         if (!options.release) {
           return '';
@@ -82,8 +86,9 @@ module.exports = function(grunt) {
       return content
         .replace(/@APPNAME/g, grunt.config('pkg.name'))
         .replace(/@VERSION/g, grunt.config('pkg.version'))
-        .replace('//@ALIAS', gAlias())
-        .replace('//@PLUGINS', gPlugins());
+        .replace(/(\/\/)?@BASE/g, gBase())
+        .replace(/(\/\/)?@ALIAS/g, gAlias())
+        .replace(/(\/\/)?@PLUGINS/g, gPlugins());
     }
 
     var options = this.options({
@@ -114,8 +119,8 @@ module.exports = function(grunt) {
         if (idleading) {
           if (idleading.indexOf('..') !== -1) {
             url = url.replace(/^\/[^\/]+/, '');
-          } else if (url.indexOf('/' + idleading) !== -1) {
-            url = url.substring(idleading.length + 1);
+          } else if (url.indexOf(idleading) !== -1) {
+            url = url.substring(idleading.length);
           }
         }
 
@@ -124,13 +129,13 @@ module.exports = function(grunt) {
       };
     }
 
-    options.idleading = path.relative(options.base, process.cwd()).replace(/\\/g, '/');
+    options.idleading = '/' + path.relative(options.base, process.cwd()).replace(/\\/g, '/');
 
     if (options.config) {
       var files = this.files.length ? this.files : [{}];
 
       files.forEach(function(f) {
-        var src = (f.src || [path.join(__dirname, '../lib/assets/config.js.tpl')])
+        var src = (f.src || [path.join(__dirname, '../lib/assets/config.js')])
         .filter(function(filepath) {
           if (!grunt.file.exists(filepath)) {
             grunt.log.warn('Source file "' + filepath + '" not found.');
