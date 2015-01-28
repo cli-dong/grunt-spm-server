@@ -80,7 +80,7 @@ module.exports = function(grunt) {
           return plugin ? '<script src="' + plugin + '?nowrap"></script>' : '';
         }).join('');
 
-        return str ? 'document.write(\'' + str + '\');' : '';
+        return str ? 'window.document.write(\'' + str + '\');' : '';
       }
 
       return content
