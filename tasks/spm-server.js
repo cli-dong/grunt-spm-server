@@ -117,7 +117,7 @@ module.exports = function(grunt) {
           return false;
         }
 
-        if (idleading) {
+        if (idleading && idleading !== '/') {
           if (idleading.indexOf('..') !== -1) {
             url = url.replace(/^\/[^\/]+/, '');
           } else if (url.indexOf(idleading) !== -1) {
