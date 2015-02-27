@@ -117,7 +117,7 @@ module.exports = function(grunt) {
           return false;
         }
 
-        if (idleading && idleading !== '/') {
+        if (idleading) {
           if (idleading.indexOf('..') !== -1) {
             url = url.replace(/^\/[^\/]+/, '');
           } else if (url.indexOf(idleading) !== -1) {
@@ -130,7 +130,11 @@ module.exports = function(grunt) {
       };
     }
 
-    options.idleading = '/' + path.relative(options.base, process.cwd()).replace(/\\/g, '/');
+    options.idleading = path.relative(options.base, process.cwd()).replace(/\\/g, '/');
+
+    if (options.idleading) {
+      options.idleading = '/' + options.idleading;
+    }
 
     if (options.config) {
       var files = this.files.length ? this.files : [{}];
