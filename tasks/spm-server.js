@@ -95,6 +95,7 @@ module.exports = function(grunt) {
       base: '.',
       // 是否生成 config 文件
       config: true,
+      host: '127.0.0.1',
       port: 8851,
       // 是否模拟线上环境
       release: true
