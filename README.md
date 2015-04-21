@@ -1,4 +1,4 @@
-# grunt-spm-server
+# Deprecated, use [dong](https://github.com/crossjs/dong) instead.
 
 [![NPM version](https://img.shields.io/npm/v/grunt-spm-server.svg?style=flat-square)](https://npmjs.org/package/grunt-spm-server)
 [![Build Status](https://img.shields.io/travis/crossjs/grunt-spm-server.svg?style=flat-square)](https://travis-ci.org/crossjs/grunt-spm-server)
